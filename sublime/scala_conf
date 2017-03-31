@@ -1,0 +1,30 @@
+sublime 支持两种方式的scala
+
+1、repl命令行方式
+
+1.1、首先安装package control插件，preferences-package control的选项，用chrl + shift + p打开package control
+     输入sublimeREPL，回车自动安装repl
+     
+1.2、在tools工具下，SublimeREPL->Scala->scala REPL打开repl
+
+
+
+2、支持scala文件直接编译运行
+2.1、选择tools->build system->new build system，将
+{
+	"shell_cmd": "make"
+}
+内容替换成
+{  
+    "shell_cmd": "scala \"$file\"",  
+    "selector": "source.scala"  
+} 
+
+2.2、save这个配置文件为scala.sublime-build，保存到C:\Program Files\Sublime Text\Data\Packages\User
+
+2.3、新建一个hello.scala的文件，内容为
+println("hello scala")
+
+ctril+b编译运行，得到输出
+hello scala
+[Finished in 16.5s]
