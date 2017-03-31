@@ -1,0 +1,22 @@
+sublime支持python3编译运行环境
+
+1、tools-build system-new build system 后生成一个空的配置文件，如下：
+  {
+    "shell_cmd": "make"
+  }
+
+2、将其改成
+{
+    "cmd": ["C:/Users/10171618.ZTE/AppData/Local/Programs/Python/Python36-32/python.exe", "-u", "$file"],
+    "file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
+    "selector": "source.python"
+}
+"cmd" 后面是python3.exe的path，
+然后保存为python3.sublime-build 存放到C:\Program Files\Sublime Text\Data\Packages\User 目录下。
+
+3、重新进入编译环境，tools-build system选择python3，然后新建一个python文件 hello.python
+print（"hello"）
+
+4、ctrl + b 运行，得到结果
+hello
+[Finished in 2.2s]
