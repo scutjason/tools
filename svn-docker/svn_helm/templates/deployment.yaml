@@ -1,0 +1,36 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ "svn" }}
+  labels:
+    app: {{  "svn" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ "svn" }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ "svn" }}
+        release: {{ .Release.Name }}
+    spec:
+      imagePullSecrets:
+        - name: {{ .Values.imagePullSecrets }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: "SVN_REPONAME"
+              value: "wingo"
+          volumeMounts:
+            - mountPath: /home/svn
+              name: svndata
+      volumes:
+        - name: svndata
+          persistentVolumeClaim:
+            claimName: svn.pvc
